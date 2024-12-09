@@ -37,6 +37,10 @@ void moveShip(Sprite& ship)
 		// right arrow is pressed: move our ship right 5 pixels
 		ship.move(DISTANCE, 0);
 	}
+	else if (Keyboard::isKeyPressed(Keyboard::Up)) {
+		ship.move(0.0, -DISTANCE); 
+	}
+
 	// *** add code (more if/else blocks) to move ship up/down
 
 	int locationX = static_cast<int>(ship.getPosition().x);

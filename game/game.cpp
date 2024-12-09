@@ -12,7 +12,7 @@ int main()
 {
 	// Create the window for graphics. 
 	//  The "aliens" is the text in the title bar on the window. 
-	RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "aliens!");
+	RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Aliens!");
 	
 	// Limit the framerate to 60 frames per second
 	window.setFramerateLimit(60);
@@ -60,6 +60,7 @@ int main()
 	float shipX = window.getSize().x / 2.0f;
 	float shipY = window.getSize().y / 2.0f;
 	ship.setPosition(shipX, shipY);
+	ship.setScale(5.0, 5.0); 
 
 	bool isMissileInFlight = false; // used to know if a missile is 'on screen'. 
 
