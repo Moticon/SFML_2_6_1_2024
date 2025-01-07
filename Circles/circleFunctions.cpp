@@ -35,7 +35,7 @@ CircleShape makeCircle(float radius, float x, float y)
 	circle.setFillColor(Color::Transparent); // Make the interior clear
 	circle.setOutlineColor(Color::Green);    // Make the outline, the circle, Green
 	circle.setOutlineThickness(1);           // Make the line 1 pixel thick
-	circle.setPosition(x, y);                // The upper right "corner" of 
+	circle.setPosition({ x, y });                // The upper right "corner" of 
 	                                         //   the square containing the circle 
 											 //   is set to x and y. 
 	return circle;

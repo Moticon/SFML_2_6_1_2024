@@ -3,16 +3,16 @@
 
 int main()
 {
-	RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Some circles");
+	RenderWindow window(VideoMode({ WINDOW_WIDTH, WINDOW_HEIGHT }), "Some circles");
 	window.setFramerateLimit(60);
 
 	
 	while (window.isOpen())
 	{
-		Event event; // events are things like key clicks, mouse movement, etc
-		while (window.pollEvent(event)) // as long as there are events, deal with them.
+		
+		while (const std::optional event = window.pollEvent()) // as long as there are events, deal with them.
 		{
-			if (event.type == Event::Closed)
+			if (event->is<sf::Event::Closed>())
 				window.close();
 		}
 

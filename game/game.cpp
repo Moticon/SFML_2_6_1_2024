@@ -12,7 +12,7 @@ int main()
 {
 	// Create the window for graphics. 
 	//  The "aliens" is the text in the title bar on the window. 
-	RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Aliens!");
+	RenderWindow window(VideoMode({ WINDOW_WIDTH, WINDOW_HEIGHT }), "Aliens!");
 	
 	// Limit the framerate to 60 frames per second
 	window.setFramerateLimit(60);
@@ -44,14 +44,17 @@ int main()
 	// A sprite is a thing we can draw and manipulate on the screen.
 	// We have to give it a "texture" to specify what it looks like
 
-	Sprite background; // the background is a sprite, though we'll never move it around. 
-	background.setTexture(starsTexture); // load the starsTexture object into the sprite.
+	/* This is the new Sprite 3.0 constructor. We pass it the texture directly
+	 * In the 2.x versions we declared a default sprite and then pass the texture. Thus the
+	 * statement on line 51 is no longer needed.   */
+	Sprite background(starsTexture); // the background is a sprite, though we'll never move it around. 
+	//background.setTexture(starsTexture); // load the starsTexture object into the sprite.
 	// The texture file is 640x480, so scale it up a little to cover 800x600 window
-	background.setScale(1.5, 1.5);
+	background.setScale({ 1.5, 1.5 });// must include vector2 types in curly braces. 
 
 	// create sprite and texture it
-	Sprite ship;
-	ship.setTexture(shipTexture);
+	Sprite ship(shipTexture); // new constructor for Sprite
+	//ship.setTexture(shipTexture); // this was the old way, added texture after the declaration
 
 	// *** You will have to code to load the  texture for the missile here. 
 	// Then create the missile Sprite...  
@@ -59,8 +62,8 @@ int main()
 	// initial position of the ship will be approx middle of screen
 	float shipX = window.getSize().x / 2.0f;
 	float shipY = window.getSize().y / 2.0f;
-	ship.setPosition(shipX, shipY);
-	ship.setScale(5.0, 5.0); 
+	ship.setPosition({ shipX, shipY });
+	ship.setScale({ 5.0, 5.0 });
 
 	bool isMissileInFlight = false; // used to know if a missile is 'on screen'. 
 
@@ -68,17 +71,22 @@ int main()
 	{
 		// check all the window's events that were triggered since the last iteration of the loop
 		// For now, we just need this so we can click on the window and close it
-		Event event;
+		// don't declare an event here, it will be declared in the while loop!
+		// Event event;
 
 		// This while loop checks to see if anything happened since last time
 		// we drew the window and all its graphics. 
-		while (window.pollEvent(event))
+		// while (window.pollEvent(event)) // this was SFML 2.x version
+		while (const std::optional event = window.pollEvent()) // get a polling event. 
 		{
-			if (event.type == Event::Closed) // Did the user kill the window by pressing the "X"?
+			// if (event.type == Event::Closed) // Did the user kill the window by pressing the "X"?
+			if (event->is<sf::Event::Closed>()) // new 3.0.0 check on event "what *is* it?"
 				window.close();
-			else if (event.type == Event::KeyPressed) // did the user press a key on the keyboard?
+			//else if (event.type == Event::KeyPressed) // did the user press a key on the keyboard?
+			else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
 			{
-				if (event.key.code == Keyboard::Space && !isMissileInFlight)
+				//if (event.key.code == Keyboard::Space && !isMissileInFlight)
+				if (keyPressed->scancode == sf::Keyboard::Scancode::Space)
 				{
 					isMissileInFlight = true;
 					// You add the code to initialize missile positino
