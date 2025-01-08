@@ -4,7 +4,7 @@
 *     - A simple example of the SFML graphics library.
 *     - This program draws circles on a black background
 *  AUTHOR: Most of the work in this program was completed by Prof. Andy Harbert
-*          Prof. Pat Smith has made modifications (December 2021)
+*          Prof. Pat Smith has made modifications (2021 - 2024)
 *
 */
 
