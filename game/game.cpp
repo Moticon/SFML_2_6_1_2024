@@ -37,6 +37,7 @@ int main()
 		cout << "Unable to load stars texture!" << endl;
 		exit(EXIT_FAILURE);
 	}
+
 	// An alien bitmap is provided in the Resource Files... 
 	//  Perhaps you'll want to make your own alien though...
 
@@ -64,6 +65,8 @@ int main()
 	ship.setScale({ 1.5, 1.5 });
 
 	bool isMissileInFlight = false; // used to know if a missile is 'on screen'. 
+
+
 
 	// As long as the window is open, keep running the animation loop. 
 	// the window closes when the user clicks the X in the window's upper right corner.
@@ -94,10 +97,18 @@ int main()
 				// if the key that was pressed was a space, fire a missile. 
 				if (keyPressed->scancode == sf::Keyboard::Scancode::Space)
 				{
+					// Time to fire the missile. Set it's position above the ship.
+					// You can create a Vector Variable to store an X-Y position.
+					//   Vector2f missileLocation = ship.getposition(); 
+					// Then you can make the missile have this position
+					// missile.setPosition(missileLocation); 
+					// then you can move the missile "up" and "to the right" by
+					//     moving it positive distance in the x direction and 
+					//     moving it negative position in the y direction (up)
+					//  missile.move({10, -10}); 
+
+					// set the missile boolean to be TRUE!
 					isMissileInFlight = true;
-					// You add the code to initialize missile position
-					//  You should have created a missile sprite 
-					// above the main loop, maybe around line 60? 
 				}   
 			}
 		}
@@ -123,15 +134,19 @@ int main()
 
 		if (isMissileInFlight)
 		{
-			// Draw the missile, 
+			
 			// move it "up" the screen by decreasing 'y' using missile.move({deltax, deltay});
 			// in later work you will check to see if the missile hit anything.
-			// Don't forget to draw the missile in its new position. 
+			// Don't forget to draw the missile in its new position in the if statement below 
 
 			// Don't forget to see if the missile is off screen!
+			//     You can check the Y position of the missile like this:
+			//         if (missile.getposition().y ....) {
 			// if it's moved off the top, set the boolean to false!
+			// if the missile has not gone off the top of the screen, draw it!
 			// this is the default now, but the statement below should be inside an if block.
-			isMissileInFlight = false;
+			isMissileInFlight = false; 
+				
 		}
 
 		// end the current frame; this makes everything that we have 
