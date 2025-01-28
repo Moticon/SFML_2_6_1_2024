@@ -61,7 +61,7 @@ int main()
 	float shipX = window.getSize().x / 2.0f;
 	float shipY = window.getSize().y / 2.0f;
 	ship.setPosition({ shipX, shipY });
-	ship.setScale({ 5.0, 5.0 });
+	ship.setScale({ 1.5, 1.5 });
 
 	bool isMissileInFlight = false; // used to know if a missile is 'on screen'. 
 
