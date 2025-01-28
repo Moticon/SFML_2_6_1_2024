@@ -66,16 +66,22 @@ int main()
 
 	bool isMissileInFlight = false; // used to know if a missile is 'on screen'. 
 
+	// As long as the window is open, keep running the animation loop. 
+	// the window closes when the user clicks the X in the window's upper right corner.
+	// that "event" is "caught and acted upon in the while loop just a few lines below here.
 	while (window.isOpen())
 	{
 		// check all the window's events that were triggered since the last iteration of the loop
 		// For now, we just need this so we can click on the window and close it
-		// don't declare an event here, it will be declared in the while loop!
-		// Event event;
 
 		// This while loop checks to see if anything happened since last time
 		// we drew the window and all its graphics. 
-		// while (window.pollEvent(event)) // this was SFML 2.x version
+		// In the while test an "optional" variable is created. This is an advanced 
+		//   concept where a variable "might" have a value - it's optional.
+		//   The "window.pollEvent()" function might or might not return an event.
+		//   If it doesn't return an event (no event happened) then the variable "event"
+		//   will not have a value. This will test as false in the while loop. 
+		// This is a C++ version 17 function. It is why this solution adds c17 to the properties
 		while (const std::optional event = window.pollEvent()) // get a polling event. 
 		{
 			// if (event.type == Event::Closed) // Did the user kill the window by pressing the "X"?
@@ -84,11 +90,11 @@ int main()
 			//else if (event.type == Event::KeyPressed) // did the user press a key on the keyboard?
 			else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
 			{
-				//if (event.key.code == Keyboard::Space && !isMissileInFlight)
+				// if the key that was pressed was a space, fire a missile. 
 				if (keyPressed->scancode == sf::Keyboard::Scancode::Space)
 				{
 					isMissileInFlight = true;
-					// You add the code to initialize missile positino
+					// You add the code to initialize missile position
 					//  You should have created a missile sprite 
 					// above the main loop, maybe around line 60? 
 				}   
@@ -105,35 +111,30 @@ int main()
 		// will appear on top of background
 		window.draw(background);
 
-		//detect key presses to update the position of the ship. 
-		//See moveShip() function above.
+		// call the function that will move this ship.
+		// the "moveship(..)" function checks for arrow keys pressed 
+		//    and changes the ships x and y coordinates to move it on the screen.
 		moveShip(ship);
 
-		// draw the ship on top of background 
+		// After checking for ship movement, draw the ship on top of background 
 		// (the ship from previous frame was erased when we drew background)
 		window.draw(ship);
 
-
-
 		if (isMissileInFlight)
 		{
-			// First get the global boundaries, the “bounding box” for the missile
-
-			isMissileInFlight = false;
-			// ***code goes here to handle a missile in flight
-			// 
 			// Draw the missile, 
-			// move it "up" the screen by decreasing 'y' and then use 'setPosition()' 
-			//     to place it at its new location. 
-
-			// Don't forget to draw it after you change the missiles location. 
+			// move it "up" the screen by decreasing 'y' using missile.move({deltax, deltay});
+			// in later work you will check to see if the missile hit anything.
+			// Don't forget to draw the missile in its new position. 
 
 			// Don't forget to see if the missile is off screen!
 			// if it's moved off the top, set the boolean to false!
+			// this is the default now, but the statement below should be inside an if block.
+			isMissileInFlight = false;
 		}
 
 		// end the current frame; this makes everything that we have 
-		// already "drawn" actually show up on the screen
+		// already "drawn" actually shows up on the screen
 		window.display();
 
 		// At this point the frame we have built is now visible on screen.
