@@ -54,7 +54,6 @@ int main()
 
 	// create sprite and texture it
 	Sprite ship(shipTexture); // new constructor for Sprite
-	//ship.setTexture(shipTexture); // this was the old way, added texture after the declaration
 
 	// *** You will have to code to load the  texture for the missile here. 
 	// Then create the missile Sprite...  
@@ -92,7 +91,7 @@ int main()
 					// You add the code to initialize missile positino
 					//  You should have created a missile sprite 
 					// above the main loop, maybe around line 60? 
-				}
+				}   
 			}
 		}
 
@@ -114,8 +113,13 @@ int main()
 		// (the ship from previous frame was erased when we drew background)
 		window.draw(ship);
 
+
+
 		if (isMissileInFlight)
 		{
+			// First get the global boundaries, the “bounding box” for the missile
+
+			isMissileInFlight = false;
 			// ***code goes here to handle a missile in flight
 			// 
 			// Draw the missile, 
