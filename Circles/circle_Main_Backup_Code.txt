@@ -1,4 +1,7 @@
 #include "Circle.h"
+
+// This is a backup of circle.h created January 2025 when upgrading to SFML 3.0
+
  /*
  *  Circles.cpp
  *     - A simple example of the SFML graphics library.
