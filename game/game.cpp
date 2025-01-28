@@ -1,12 +1,11 @@
 #include "gameHeader.h"
 /*
-*  game.cpp
-*     - A simple game loop that allows you to move the ship
-*       and eventually fire a missile. 
-*  AUTHOR: Most of the work in this program was completed by Prof. Andy Harbert
-*          Prof. Pat Smith has made modifications (December 2021)
-*
-*/   
+ *  game.cpp
+ *     - A simple game loop that allows you to move the ship
+ *       and eventually fire a missile. 
+ *  AUTHOR: Most of the work in this program was completed by Prof. Andy Harbert
+ *          Prof. Pat Smith has made modifications (December 2021, 2024 upgrade to 3.0)
+ */   
 
 int main()
 {
@@ -71,17 +70,19 @@ int main()
 	// that "event" is "caught and acted upon in the while loop just a few lines below here.
 	while (window.isOpen())
 	{
-		// check all the window's events that were triggered since the last iteration of the loop
-		// For now, we just need this so we can click on the window and close it
+		/* check all the window's events that were triggered since the last iteration of the loop
+		 * For now, we just need this so we can click on the window and close it
 
-		// This while loop checks to see if anything happened since last time
-		// we drew the window and all its graphics. 
-		// In the while test an "optional" variable is created. This is an advanced 
-		//   concept where a variable "might" have a value - it's optional.
-		//   The "window.pollEvent()" function might or might not return an event.
-		//   If it doesn't return an event (no event happened) then the variable "event"
-		//   will not have a value. This will test as false in the while loop. 
-		// This is a C++ version 17 function. It is why this solution adds c17 to the properties
+		 * This while loop checks to see if anything happened since last time
+		 * we drew the window and all its graphics. 
+		 * In the while test an "optional" variable is created. This is an advanced 
+		 *   concept where a variable "might" have a value - it's optional.
+		 *   The "window.pollEvent()" function might or might not return an event.
+		 *   If it doesn't return an event (no event happened) then the variable "event"
+		 *   will not have a value. This will test as false in the while loop. 
+		 * 
+		 * This is a C++ version 17 function. It is why this solution adds c17 to the properties
+		 */
 		while (const std::optional event = window.pollEvent()) // get a polling event. 
 		{
 			// if (event.type == Event::Closed) // Did the user kill the window by pressing the "X"?
