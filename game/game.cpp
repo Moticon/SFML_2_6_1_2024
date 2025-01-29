@@ -133,7 +133,7 @@ int main()
 		window.draw(ship);
 
 		if (isMissileInFlight)
-		{
+		{   
 			
 			// move it "up" the screen by decreasing 'y' using missile.move({deltax, deltay});
 			// in later work you will check to see if the missile hit anything.
