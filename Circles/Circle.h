@@ -12,7 +12,7 @@
 using namespace std;
 
 // this is the include file for the SFML library.
-// ** you -->MUST<-- have SFML installed at the top folder of the C: drive.
+// ** you -->MUST<-- have SFML installed at the top folder    of the C: drive.
 // This is because the configuration points to a folder on C:\SMFL-3.0.0
 #include <SFML/Graphics.hpp>
 using namespace sf;
