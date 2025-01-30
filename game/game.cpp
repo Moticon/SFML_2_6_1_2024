@@ -3,7 +3,7 @@
  *  game.cpp
  *     - A simple game loop that allows you to move the ship
  *       and eventually fire a missile. 
- *  AUTHOR: Most of the work in this program was completed by Prof. Andy Harbert
+ *  AUTHOR: Initial work in this program was completed by Prof. Andy Harbert
  *          Prof. Pat Smith has made modifications (December 2021, 2024 upgrade to 3.0)
  */   
 
@@ -15,19 +15,30 @@ int main()
 	
 	// Limit the framerate to 60 frames per second
 	window.setFramerateLimit(60);
-
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// To create a Sprite, which is a movable image on the display, 
+	// You must first create a Texture 
+	// a Texture is an image of pixels. You can load a .png file
+	//   or a bitmap file.  These files are in the "Resource files" section of
+	//   the solution explorer.  
 	// load textures from file into memory. This doesn't display anything yet.
 	// Notice we do this *before* going into animation loop.
 
-	// a Texture is an image of pixels. You can load a .png file
-	//   or a bitmap file.  These files are in the "Resource files" section of
-	//   the solution explorer. 
+	// create the ship texture variable, load the image file. 
 	Texture shipTexture;
 	if (!shipTexture.loadFromFile("ship.png"))
 	{
 		cout << "Unable to load ship texture!" << endl;
 		exit(EXIT_FAILURE);
 	}
+	// create sprite and load the ship texture in it
+	Sprite ship(shipTexture); 
+  
+	// initial position of the ship will be approx middle of screen
+	float shipX = window.getSize().x / 2.0f;
+	float shipY = window.getSize().y / 2.0f;
+	ship.setPosition({ shipX, shipY });
+	ship.setScale({ 1.5, 1.5 });
 
 	// We use the star texture as a background for space in the window.
 	//  it makes it more interesting. :)
@@ -38,43 +49,25 @@ int main()
 		exit(EXIT_FAILURE);
 	}
 
-	// An alien bitmap is provided in the Resource Files... 
-	//  Perhaps you'll want to make your own alien though...
-
-	// A sprite is a thing we can draw and manipulate on the screen.
-	// We have to give it a "texture" to specify what it looks like
-
-	/* This is the new Sprite 3.0 constructor. We pass it the texture directly
-	 * In the 2.x versions we declared a default sprite and then pass the texture. Thus the
-	 * statement on line 51 is no longer needed.   */
 	Sprite background(starsTexture); // the background is a sprite, though we'll never move it around. 
-	//background.setTexture(starsTexture); // load the starsTexture object into the sprite.
 	// The texture file is 640x480, so scale it up a little to cover 800x600 window
 	background.setScale({ 1.5, 1.5 });// must include vector2 types in curly braces. 
 
-	// create sprite and texture it
-	Sprite ship(shipTexture); // new constructor for Sprite
-
 	// *** You will have to code to load the  texture for the missile here. 
-	// Then create the missile Sprite...  
-
-	// initial position of the ship will be approx middle of screen
-	float shipX = window.getSize().x / 2.0f;
-	float shipY = window.getSize().y / 2.0f;
-	ship.setPosition({ shipX, shipY });
-	ship.setScale({ 1.5, 1.5 });
-
+	// Then create the missile Sprite. See how the ship was created above to make this work.
 	bool isMissileInFlight = false; // used to know if a missile is 'on screen'. 
 
-
-
-	// As long as the window is open, keep running the animation loop. 
-	// the window closes when the user clicks the X in the window's upper right corner.
-	// that "event" is "caught and acted upon in the while loop just a few lines below here.
+	/*
+	 *    MAIN GAME LOOP BELOW
+	 *     -- define all sprites and variables above. 
+	 *
+	 * As long as the window is open, keep running the animation loop. 
+	 * the window closes when the user clicks the X in the window's upper right corner.
+	 * that "event" is "caught and acted upon in the while loop just a few lines below here.
+	 */
 	while (window.isOpen())
 	{
 		/* check all the window's events that were triggered since the last iteration of the loop
-		 * For now, we just need this so we can click on the window and close it
 
 		 * This while loop checks to see if anything happened since last time
 		 * we drew the window and all its graphics. 
